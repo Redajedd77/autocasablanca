@@ -1,0 +1,83 @@
+<!-- gestion_produits/templates/produit_form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter un Produit</title>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #39bfdc;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        form input,
+        form select,
+        form textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        form button {
+            padding: 10px;
+            color: #fff;
+            background-color: #39bfdc;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #39bfdc;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Ajouter un Produit</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Ajouter</button>
+        </form>
+        <a href="{% url 'produit_list' %}"> << Retour à la liste</a>
+    </div>
+</body>
+</html>

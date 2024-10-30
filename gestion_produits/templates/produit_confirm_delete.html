@@ -1,0 +1,75 @@
+<!-- gestion_produits/templates/produit_confirm_delete.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmer la Suppression</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #f44336; /* Red color for delete confirmation */
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        form button {
+            padding: 10px;
+            color: #fff;
+            background-color: #f44336;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #c62828;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .btn{
+            background-color: darkgray;
+            margin-left: 15px;
+            padding: 10px;
+            color: #ffffff;
+            border-radius: 6px ;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Confirmer la Suppression</h2>
+        <p>Êtes-vous sûr de vouloir supprimer le produit "{{ produit.nom }}" ?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Supprimer</button>
+            <a class="btn" href="{% url 'produit_list' %}"> Annuler</a>
+        </form>
+
+    </div>
+</body>
+</html>

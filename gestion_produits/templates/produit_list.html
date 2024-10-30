@@ -1,0 +1,188 @@
+<!-- gestion_produits/templates/produit_list.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des Produits</title>
+    <style>
+        /* Basic styles for the nav bar */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: #39bfdc;
+            overflow: hidden;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar img {
+            height: 40px; /* Adjust the height of the logo */
+            margin-right: 20px;
+            padding: 5px;
+            background-color: aliceblue;
+            border-radius: 6px;
+        }
+
+        .navbar a {
+            float: left;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .navbar a:hover {
+            background-color: #2a9fd6;
+            border-radius:12px ;
+            margin-left: 10px;
+        }
+
+        .navbar .active {
+            background-color: #1e90ff;
+            border-radius:12px ;
+        }
+
+        .container {
+            max-width: 1200px;
+            height: 650px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Styles for the search form and table */
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-container input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .search-container button {
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #39bfdc;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background-color: #2a9fd6;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        .btn {
+            padding: 5px 15px;
+            color: white;
+            background-color: #39bfdc;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .btn-danger {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <!-- Add the logo image -->
+        <img src="{% static 'images/logo2.png' %}" alt="Logo">
+        <a href="{% url 'produit_list' %}" >Auto Casablanca - أوطو الدار البيضاء</a>
+        <a href="{% url 'produit_add' %}">Ajouter un Produit</a>
+        <!-- Add more links as needed -->
+        <!-- Example in produit_list.html -->
+        <a href="{% url 'logout' %}">Déconnexion</a>
+
+
+    </div>
+
+    <div class="container">
+        <h2>Dashboard Admin</h2>
+
+        <!-- Search Form -->
+        <div class="search-container">
+            <form method="get">
+                <input type="text" name="q" placeholder="Rechercher un produit..." value="{{ query }}">
+                <button type="submit">Rechercher</button>
+            </form>
+        </div>
+
+        <a href="{% url 'produit_add' %}" class="btn">Ajouter un Produit</a><br><br><br>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Prix</th>
+                    <th>Stock</th>
+                    <th>images</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produit in produits %}
+                <tr>
+                    <td>{{ produit.id }}</td>
+                    <td>{{ produit.nom }}</td>
+                    <td>{{ produit.description }}</td>
+                    <td>{{ produit.prix }}</td>
+                    <td>{{ produit.stock }}</td>
+                    <td>{% if produit.image %}
+                    <img src="{{ produit.image.url }}" alt="{{ produit.non }}" height="100" width="150">
+                    {% else %}
+                    <p>No image available</p>
+                    {% endif %}
+                    </td>
+
+                    <td>
+                        <a href="{% url 'produit_edit' produit.id %}" class="btn">Modifier</a>
+                        <a href="{% url 'produit_delete' produit.id %}" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">Aucun produit trouvé</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
